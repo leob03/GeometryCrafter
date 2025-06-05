@@ -1,7 +1,3 @@
-# ──────────────────────────────────────────────────────────────────────────
-#  COLMAP ► Blender  |  One-file loader for PINHOLE / SIMPLE_PINHOLE cams
-#  author: you :)
-# ──────────────────────────────────────────────────────────────────────────
 import os, math, bpy, mathutils
 import numpy as np
 
@@ -99,6 +95,8 @@ for f_idx, img in enumerate(frames, start=1):
     # 1. Poses  (world ➜ camera given by COLMAP)
     R_wc = qvec2rotmat(img["qvec"]).T                 # camera ➜ world
     t_wc = -R_wc @ img["tvec"]
+    SCALE = 0.01      # e.g. metres → centimetres
+    t_wc  = t_wc * SCALE
 
     # SCALE = 0.01   # example: metres ➜ centimetres
     # t_wc *= SCALE
